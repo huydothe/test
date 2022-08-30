@@ -38,6 +38,19 @@ const server = http.createServer((req, res)=>{
                     authController.login(req,res);
                 }
                 break;
+            case '/user/add':
+                if(req.method === 'GET'){
+                    authController.formRegister(req,res);
+                }else {
+                    authController.Register(req,res);
+                }
+                break;
+            case '/userLogin':
+                authController.showUserLogin(req,res);
+                break;
+            case '/delete':
+                authController.deleteUser(req,res)
+                break;
             default:
                 res.end();
         }
