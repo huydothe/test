@@ -5,7 +5,7 @@ const CustomerController = require('./src/controller/customer.controller');
 const AuthController = require('./src/controller/authController');
 const authController = new AuthController();
 const customerController = new CustomerController();
-const port = 3000;
+const port = 8080;
 let mimeTypes={
     'jpg' : 'images/jpg',
     'png' : 'images/png',
@@ -20,7 +20,7 @@ let mimeTypes={
 
 const server = http.createServer((req, res)=>{
     let urlParse = url.parse(req.url);
-    let pathUrl = urlParse.pathname
+    let pathUrl = urlParse.pathname;
     const filesDifferent = req.url.match(/\.js|\.css|\.png|\.svg|\.jpg|\.ttf|\.woff|\.woff2|\.eot/);
     if(filesDifferent){
         const extension = mimeTypes[filesDifferent[0].toString().split('.')[1]];
@@ -45,5 +45,5 @@ const server = http.createServer((req, res)=>{
 })
 
 server.listen(port,()=>{
-    console.log(`Server is running at http://localhost:${port}`);
+    console.log(`Server is running at http://localhost:${port}/login`);
 })

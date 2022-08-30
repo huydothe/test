@@ -21,21 +21,24 @@ class AuthController extends BaseModel {
                     }
                     data = data.replace('{usernames}', cookieUserLogin.username);
                     data = data.replace('{passwords}', cookieUserLogin.password);
+
                     res.write(data);
                     res.end();
                 })
             }
-        } else {
-            fs.readFile('./login-form-20/index.html', 'utf8', (err, data) => {
-                if (err) {
-                    throw new Error(err.message)
-                }
-                data = data.replace('{usernames}', cookieUserLogin.username);
-                data = data.replace('{passwords}', cookieUserLogin.password);
-                res.write(data);
-                res.end();
-            })
         }
+        // else {
+        //     fs.readFile('./login-form-20/index.html', 'utf8', (err, data) => {
+        //         if (err) {
+        //             throw new Error(err.message)
+        //         }
+        //         data = data.replace('{usernames}', cookieUserLogin.username);
+        //         data = data.replace('{passwords}', cookieUserLogin.password);
+        //         res.writeHead(200,{'Content-type':'text/html'})
+        //         res.write(data);
+        //         res.end();
+        //     })
+        // }
     }
 
     login(req, res) {
