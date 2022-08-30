@@ -46,10 +46,12 @@ const server = http.createServer((req, res)=>{
                 }
                 break;
             case '/userLogin':
-                authController.showUserLogin(req,res);
+                authController.showUserLogin(req,res).catch(err=>{
+                    console.log(err.message)
+                });
                 break;
             case '/delete':
-                authController.deleteUser(req,res)
+                authController.deleteUsers(req,res)
                 break;
             default:
                 res.end();

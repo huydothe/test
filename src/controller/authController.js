@@ -82,38 +82,42 @@ class AuthController extends BaseModel {
         });
         req.on('end',async ()=> {
             let dataForm = qs.parse(data);
-            if (dataForm.username !== null && dataForm.password !== null) {
+            if (dataForm.username !== '' && dataForm.password !== '') {
                 await userModel.addUser(dataForm);
-                res.writeHead(301, {location: '/'});
+                res.writeHead(301, {location: '/login'});
                 return res.end();
             } else {
-                res.writeHead(301, {location: '/login'});
+                res.writeHead(301, {location: '/user/add'});
                 return res.end();
             }
         })
     }
 
-    // async showUserLogin(req,res){
-    //     let customers = await userModel.showUser();
-    //     fs.readFile('./userLogin/showUserLogin.html','utf8',(err,data)=>{
-    //         if(err){
-    //             throw new Error(err.message)
-    //         }
-    //         let html='';
-    //         customers.forEach((value,index)=>{
-    //             html+=`<tr>`;
-    //             html+=`<td>${index+1}</td>`;
-    //             html+=`<td>${value.username}</td>`;
-    //             html+=`<td>${value.passwords}</td>`;
-    //             html+=`<td><a href="/detele?index=${index}" class="btn btn-danger">Delete</a></td>`;
-    //             html+=`</tr>`;
-    //         })
-    //         data=data.replace('{user-login}',html);
-    //         res.writeHead(200,{'Content-Type':'text/html'});
-    //         res.write(data);
-    //         res.end();
-    //     })
-    // }
+    async showUserLogin(req,res){
+        let customers = await userModel.showUser();
+        fs.readFile('./userLogin/showUserLogin.html','utf8',(err,data)=>{
+            if(err){
+                throw new Error(err.message)
+            }
+            let html='';
+            customers.forEach((value,index)=>{
+                html+=`<tr>`;
+                html+=`<td>${index+1}</td>`;
+                html+=`<td>${value.username}</td>`;
+                html+=`<td>${value.passwords}</td>`;
+                html+=`<td><a href="/detele?index=${index}" class="btn btn-danger">Delete</a></td>`;
+                html+=`</tr>`;
+            })
+            data=data.replace('{user-login}',html);
+            res.writeHead(200,{'Content-Type':'text/html'});
+            res.write(data);
+            res.end();
+        })
+    }
+    deleteUsers(req,res){
+        let index = url.parse(req.url)
+        console.log(index);
+    }
 
 }
 
